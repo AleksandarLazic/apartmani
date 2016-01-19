@@ -5,6 +5,23 @@ var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate'],
 	}
 );
 
+app.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+                when('/', {
+                    templateUrl : 'admin/apartmani',
+                    controller 	: 'addApartmentController'
+                }).
+                when('/accessories/:param', {
+                	templateUrl : 'admin/accessories',
+                	controller 	: 'addApartmentController'
+                }).
+                otherwise({ 
+                	redirectTo: '/' 
+            	});
+    }
+]);
+
 app.controller('addApartmentController', function($scope, $http, $location, $routeParams) {
 	
 	$scope.apartments = [];
@@ -72,20 +89,3 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 
 	$scope.showAllApartment();
 });
-
-app.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.
-                when('/', {
-                    templateUrl : 'admin/apartmani',
-                    controller 	: 'addApartmentController'
-                }).
-                when('/accessories/:param', {
-                	templateUrl : 'admin/accessories',
-                	controller 	: 'addApartmentController'
-                }).
-                otherwise({ 
-                	redirectTo: '/' 
-            	});
-    }
-]);
