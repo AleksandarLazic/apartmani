@@ -1,4 +1,4 @@
-<div>
+<div class="col-xs-12 col-lg-6">
 	<span id="title">Dodaj Apartman <hr></span>
 	<div class="form-group">
 		<select class="form-control input-lg" name="internet" ng-model="internet">
@@ -51,3 +51,4 @@
 	<button class="btn btn-default" ng-click="addAccessories()">
 		<a>Dalje</a></button>
 </div>
+@include('admin.allApartmens')

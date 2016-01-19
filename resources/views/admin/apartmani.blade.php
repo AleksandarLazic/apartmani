@@ -1,4 +1,4 @@
-<div>
+<div class="col-xs-12 col-lg-6">
 	<span id="title">Dodaj Apartman <hr></span>
 	<form>
 		<div class="form-group">
@@ -45,3 +45,4 @@
 		<a>Dalje</a></button>
 	</form>
 </div>
+@include('admin.allApartmens')
