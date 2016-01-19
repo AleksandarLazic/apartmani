@@ -1,16 +1,17 @@
-var app = angular.module('apartmentApp', []);
+var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate'],
+	function($interpolateProvider) {
+		$interpolateProvider.startSymbol('[[');
+  		$interpolateProvider.endSymbol(']]');
+	}
+);
 
-app.config(function($interpolateProvider) {
-	$interpolateProvider.startSymbol('[[');
-  	$interpolateProvider.endSymbol(']]');
-});
-
-
-app.controller('addApartmentController', function($scope, $http) {
+app.controller('addApartmentController', function($scope, $http, $location, $routeParams) {
 	
 	$scope.apartments = [];
+	$scope.errors = [];
 
-	$scope.saveApartment = function() { 
+	$scope.saveApartment = function() {
+		$scope.errors.length = 0; 
 		$http({
 			method: "POST",
 			url: "/api/addApartment",
@@ -30,6 +31,32 @@ app.controller('addApartmentController', function($scope, $http) {
 			$scope.room = "";
 			$scope.bed = "";
 			$scope.apartments.push(data);
+			$location.path('/accessories/'+ data.id);
+		}).
+		error(function(data) {
+			$scope.errors.push(data);
+		});
+	}
+
+	$scope.addAccessories = function() {
+		$http({
+			method: "POST",
+			url: "/api/addAccessories",
+			data: {
+				apartment_id : $routeParams.param,
+				internet : $scope.internet,
+				parking : $scope.parking,
+				tv : $scope.tv,
+				klima : $scope.klima,
+				vesmasina : $scope.vesmasina,
+				ljubimci : $scope.ljubimci
+			}
+		}).
+		success(function() {
+			$location.path('/');
+		}).
+		error(function(data) {
+			$scope.errors.push(data);
 		});
 	}
 
@@ -45,3 +72,20 @@ app.controller('addApartmentController', function($scope, $http) {
 
 	$scope.showAllApartment();
 });
+
+app.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+                when('/', {
+                    templateUrl : 'admin/apartmani',
+                    controller 	: 'addApartmentController'
+                }).
+                when('/accessories/:param', {
+                	templateUrl : 'admin/accessories',
+                	controller 	: 'addApartmentController'
+                }).
+                otherwise({ 
+                	redirectTo: '/' 
+            	});
+    }
+]);

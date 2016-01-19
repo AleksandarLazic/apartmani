@@ -32,6 +32,6 @@ class CreateApartmansTable extends Migration
      */
     public function down()
     {
-        Schema::drop('apartmans');
+        Schema::drop('apartmens');
     }
 }

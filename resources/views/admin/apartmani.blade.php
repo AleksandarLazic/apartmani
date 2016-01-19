@@ -1,26 +1,25 @@
-@extends('layouts.master')
-
-@section('content')
-<div ng-app="apartmentApp" ng-controller="addApartmentController">
-<div class="col-xs-12 col-lg-6">
+<div>
 	<span id="title">Dodaj Apartman <hr></span>
 	<form>
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="apartman_name"
 			 placeholder="Ime apartmana" ng-model="apartment_name">
+			 <p ng-repeat="error in errors">[[ error.apartment_name[0] ]]</p>
 		</div>
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="city"
 			 placeholder="Grad" ng-model="city">
+			 <p ng-repeat="error in errors">[[ error.city[0] ]]</p>
 		</div>
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="address"
 			 placeholder="Adresa" ng-model="address">
-
+			 <p ng-repeat="error in errors">[[ error.address[0] ]]</p>
 		</div>
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="price"
 			 placeholder="Cena nocenja" ng-model="price">
+			 <p ng-repeat="error in errors">[[ error.price[0] ]]</p>
 		</div>
 		<div class="form-group">
 			<select class="form-control input-lg" name="room" ng-model="room">
@@ -30,6 +29,7 @@
 				<option value="3">3</option>
 				<option value="4">4</option>
 			</select>
+			<p ng-repeat="error in errors">[[ error.room[0] ]]</p>
 		</div>
 		<div class="form-group">
 			<select class="form-control input-lg" name="bed" ng-model="bed">
@@ -39,19 +39,9 @@
 				<option value="3">3</option>
 				<option value="4">4</option>
 			</select>
+			<p ng-repeat="error in errors">[[ error.bed[0] ]]</p>
 		</div>
-		<input class="btn btn-default" type="submit" value="Dalje" ng-click="saveApartment()">
+		<button class="btn btn-default" ng-click="saveApartment()">
+		<a>Dalje</a></button>
 	</form>
 </div>
-
-<div class="col-lg-6 allApartments">
-	<span id="title">Svi vasi apartmani <hr></span>
-	<div id="all" ng-repeat="item in apartments">
-		<div class="col-lg-3 col-xs-12 box">
-			<p> [[ item.apartment_name ]] </p>
-			<p> Cena: [[ item.price ]] &euro; </p>
-		</div>
-	</div>
-</div>
-</div>
-@endsection

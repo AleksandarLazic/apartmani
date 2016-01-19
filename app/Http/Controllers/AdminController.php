@@ -15,11 +15,16 @@ class AdminController extends Controller
 {
 	public function index()
 	{
-		return view('admin.apartmani');
+		return view('layouts.master');
 	}
 
 	public function reservation()
 	{
 		return view('admin.reservation');
+	}
+
+	public function accessories($id)
+	{
+		return view('admin.accessories');
 	}
 }

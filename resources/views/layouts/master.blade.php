@@ -10,7 +10,7 @@
 		@include('assets.css')
 		<title>Admin Panel</title>
 	</head>
-	<body>
+	<body ng-app="apartmentApp" ng-controller="addApartmentController">
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -44,11 +44,19 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				@yield('content')
+				<div ng-view class="col-xs-12 col-lg-6"></div>
+				<div class="col-lg-6 allApartments">
+					<span id="title">Svi vasi apartmani <hr></span>
+					<div id="all" ng-repeat="item in apartments">
+						<div class="col-lg-3 col-xs-12 box">
+							<p> [[ item.apartment_name ]] </p>
+							<p> Cena : [[ item.price ]] &euro; </p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
-
 	</body>
 	@include('assets.js')
 </html>

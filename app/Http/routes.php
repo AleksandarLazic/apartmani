@@ -19,34 +19,52 @@ Route::group(['middleware' => ['web']], function () {
 
   });
   
-  Route::group(['middleware' => ['web', 'auth']], function() {
-     
-     Route::get('admin/logout', [
-        'as'    => 'logout.get',
-        'uses'  => 'AuthController@logout'
-      ]);
+Route::group(['middleware' => ['web', 'auth']], function() {
+   
+   Route::get('admin/logout', [
+      'as'    => 'logout.get',
+      'uses'  => 'AuthController@logout'
+    ]);
 
-     Route::get('admin/panel', [
-        'as'    => 'panel.get',
-        'uses'  => 'AdminController@index'
-      ]);
+   Route::get('admin/', [
+      'as'    => 'panel.get',
+      'uses'  => 'AdminController@index'
+    ]);
 
-     Route::get('admin/reservation', [
-        'as'    => 'reservation.get',
-        'uses'  => 'AdminController@reservation'
-      ]);
+   Route::get('admin/reservation', [
+      'as'    => 'reservation.get',
+      'uses'  => 'AdminController@reservation'
+    ]);
+
+   Route::get('admin/apartmentAcc/{id}', [
+      'as'    => 'apartmentAcc.get',
+      'uses'  => 'AdminController@accessories'
+    ]);
 
 
-     //api routes
+    //api routes
 
-      Route::post('api/addApartment', [
-        'as'    => 'addApartment.post',
-        'uses'  => 'ApiController@addApartment'
-      ]);
+    Route::get('/admin/{name}', function($name) {
+      $view_path = 'admin.' . $name;
+      if(view()->exists($view_path))
+        return view($view_path);
+      else 
+        App::abort(404, 'error');
+    });
 
-      Route::get('api/selectAllApartments', [
-        'as'    => 'selectAllApartments.get',
-        'uses'  => 'ApiController@getAppartments'
-      ]);
-  
-  });
+    Route::post('api/addApartment', [
+      'as'    => 'addApartment.post',
+      'uses'  => 'ApiController@addApartment'
+    ]);
+
+    Route::post('api/addAccessories', [
+      'as'    => 'addAccessories.post',
+      'uses'  => 'ApiController@addAccessories'
+    ]);
+
+    Route::get('api/selectAllApartments', [
+      'as'    => 'selectAllApartments.get',
+      'uses'  => 'ApiController@getAppartments'
+    ]);
+
+});
