@@ -13,6 +13,21 @@ use DB;
 
 class ApiController extends Controller
 {
+    private $validatonRulesEditApartment = array(
+            'apartment_name'    => 'required',
+            'city'              => 'required',
+            'address'           => 'required',
+            'price'             => 'required',
+            'room'              => 'required',
+            'bed'               => 'required',
+            'apartment_id'      => 'required',
+            'internet'          => 'required',
+            'parking'           => 'required',
+            'tv'                => 'required',
+            'klima'             => 'required',
+            'vesmasina'         => 'required',
+            'ljubimci'          => 'required',
+            );
 
     public function addApartment(Request $request) 
     {	
@@ -61,9 +76,53 @@ class ApiController extends Controller
         }
     }
 
+    public function editApartment(Request $request) {
+        $validator = Validator::make($request->all(), $this->validatonRulesEditApartment);
+
+        if($validator->fails()) {
+            $messages = $validator->messages();
+            return Response::json($messages, 400);
+        } else {
+            $queryOne = DB::table('apartmens')
+                        ->where('id', $request->apartment_id)
+                        ->update(array(
+                            'apartment_name' => $request->apartment_name,
+                            'city' => $request->city,
+                            'address' => $request->address,
+                            'price' => $request->price,
+                            'beds' => $request->bed,
+                            'rooms' => $request->room));
+
+            $queryTwo = DB::table('accessories')
+                        ->where('apartment_id', $request->apartment_id)
+                        ->update(array(
+                            'internet' => $request->internet,
+                            'parking' => $request->parking,
+                            'tv' => $request->tv,
+                            'klima' => $request->klima,
+                            'vesmasina' => $request->vesmasina,
+                            'ljubimci' => $request->ljubimci));
+        }
+    }
+
+    public function selectAccessories($id) {
+        $query = DB::table('accessories')->where('apartment_id', '=', $id)->get();
+        return Response::json($query);
+    }
+
     public function getAppartments()
     {
     	$query = DB::table('apartmens')->get();
     	return Response::json($query);
+    }
+
+    public function deleteApartment($id) {
+        $queryOne = DB::table('apartmens')
+                ->where('id', '=', $id)
+                ->delete();
+
+        $queryTwo = DB::table('accessories')
+                ->where('apartment_id', '=', $id)
+                ->delete();
     }
 }

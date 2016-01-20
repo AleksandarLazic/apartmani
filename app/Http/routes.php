@@ -62,6 +62,21 @@ Route::group(['middleware' => ['web', 'auth']], function() {
       'uses'  => 'ApiController@addAccessories'
     ]);
 
+    Route::post('api/editApartment', [
+      'as'    => 'editApartment.post',
+      'uses'  => 'ApiController@editApartment'
+    ]);
+
+    Route::get('api/selectAccessories/{id}', [
+      'as'    => 'selectAccessories.get',
+      'uses'  => 'ApiController@selectAccessories'
+    ]);
+
+    Route::get('api/deleteApartment/{id}', [
+      'as'    => 'deleteApartment.get',
+      'uses'  => 'ApiController@deleteApartment'
+    ]);
+
     Route::get('api/selectAllApartments', [
       'as'    => 'selectAllApartments.get',
       'uses'  => 'ApiController@getAppartments'

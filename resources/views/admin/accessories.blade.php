@@ -1,5 +1,6 @@
 <div class="col-xs-12 col-lg-6">
-	<span id="title">Dodaj Apartman <hr></span>
+	<span id="title" ng-show="showTitleAddAcc">Dodaj Opremu <hr></span>
+	<span id="title" ng-show="hideTitleAddAcc">Izmeni Opremu <hr></span>
 	<div class="form-group">
 		<select class="form-control input-lg" name="internet" ng-model="internet">
 			<option value="" disabled>Internet</option>
