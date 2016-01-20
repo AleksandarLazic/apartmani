@@ -102,6 +102,9 @@ class ApiController extends Controller
                             'klima' => $request->klima,
                             'vesmasina' => $request->vesmasina,
                             'ljubimci' => $request->ljubimci));
+
+            $query = DB::table('apartmens')->where('id', '=', $request->apartment_id)->get();
+            return Response::json($query);
         }
     }
 

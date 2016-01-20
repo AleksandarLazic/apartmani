@@ -31,6 +31,7 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 	$scope.showTitleAddAcc = true; //show title dodaj accessories
 	$scope.showTitleAddApartment = true; // show title dodaj apartman
 	$scope.showNext = true; // show button dalje
+	
 
 	$scope.saveApartment = function() {
 		$scope.errors.length = 0; 
@@ -46,12 +47,7 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 				bed : $scope.bed }
 		}).
 		success(function(data) {
-			$scope.apartment_name = "";
-			$scope.city = "";
-			$scope.address = "";
-			$scope.price = "";
-			$scope.room = "";
-			$scope.bed = "";
+			clearFields();
 			$scope.apartments.push(data);
 			$location.path('/accessories/'+ data.id);
 		}).
@@ -82,7 +78,7 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 		});
 	}
 
-	$scope.editApartment = function(item) {
+	$scope.editApartment = function(item, index) {
 		$scope.showNext = false; //hide dalje button
 		$scope.showSave = true; //show sacuvaj button
 		$scope.showAccessories = true;
@@ -99,6 +95,7 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 		$scope.room = item.rooms;
 		$scope.bed = item.beds;
 		$scope.id  = item.id;
+		$scope.index = index;
 		showAccessories(item.id);	
 	}
 
@@ -123,11 +120,12 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 			}
 		}).
 		success(function(data) {
-			$scope.showNext = false;
 			$scope.showSave = false;
 			$scope.showAccessories = false;
 			$scope.hideApartments = false;
-			$scope.apartments.push(data);
+			$scope.showNext = true; // show button dalje
+			$scope.apartments[$scope.index] = data[0];
+			clearFields();
 		}).
 		error(function(data) {
 			$scope.errors.push(data);
@@ -167,6 +165,15 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 			$scope.vesmasina = data[0].vesmasina;
 			$scope.ljubimci = data[0].ljubimci;
 		});
+	}
+
+	var clearFields = function() {
+		$scope.apartment_name = "";
+		$scope.city = "";
+		$scope.address = "";
+		$scope.price = "";
+		$scope.room = "";
+		$scope.bed = "";
 	}
 
 	$scope.showAllApartment();
