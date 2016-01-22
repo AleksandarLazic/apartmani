@@ -11,7 +11,11 @@ span, p {
     cursor: default !important;
 }
 
-form, .allApartments, .nav a {
+.select {
+    cursor: pointer !important;
+}
+
+h1, form, .allApartments, .nav a {
     font-family: 'Cabin', Helvetica, Arial, sans-serif;
 }
 

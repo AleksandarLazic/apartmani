@@ -19,8 +19,11 @@ class AuthController extends Controller
 	# Admin login
 	*/
     public function index()
-    {
-    	return view('admin.login');
+    {   
+    	if (Auth::check())
+            return redirect()->intended('/admin/');
+        else
+            return view('admin.login');
     }
 
     /*
@@ -48,7 +51,7 @@ class AuthController extends Controller
             ];
 
     		if(Auth::attempt($credentials))
-    			return redirect()->intended('admin/panel');
+    			return redirect()->intended('admin#/');
     		else 
     			return redirect()->back();
     	}

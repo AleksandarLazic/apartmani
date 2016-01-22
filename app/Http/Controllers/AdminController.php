@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Admin;
-use App\Apartman;
+use App\Apartment;
 
 use Illuminate\Http\Request;
 

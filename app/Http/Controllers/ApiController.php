@@ -7,77 +7,88 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Response;
-use App\Apartman;
+use App\Apartment;
 use App\Accessories;
+use App\Image;
 use DB;
 
 class ApiController extends Controller
 {
-    private $validatonRulesEditApartment = array(
+    private $validatonRulesApartment = array(
             'apartment_name'    => 'required',
             'city'              => 'required',
             'address'           => 'required',
             'price'             => 'required',
             'room'              => 'required',
             'bed'               => 'required',
-            'apartment_id'      => 'required',
             'internet'          => 'required',
             'parking'           => 'required',
             'tv'                => 'required',
             'klima'             => 'required',
             'vesmasina'         => 'required',
             'ljubimci'          => 'required',
+            'files'             => 'required',
             );
 
     public function addApartment(Request $request) 
     {	
-    	$validator = Validator::make($request->all(), Apartman::$validatonRulesCreateApartment);
+    	$validator = Validator::make($request->all(), $this->validatonRulesApartment);
 
     	if($validator->fails()) {
     		$messages = $validator->messages();
             return Response::json($messages, 400);
     	} 
         else {
-    		$query = new Apartman;
-    		$query->apartment_name = $request->apartment_name;
-    		$query->city = $request->city;
-    		$query->address = $request->address;
-    		$query->price = $request->price;
-    		$query->rooms = $request->room;
-    		$query->beds = $request->bed;
+    		$queryA = new Apartment;
+    		$queryA->apartment_name = $request->apartment_name;
+    		$queryA->city = $request->city;
+    		$queryA->address = $request->address;
+    		$queryA->price = $request->price;
+    		$queryA->rooms = $request->room;
+    		$queryA->beds = $request->bed;
 
-    		$query->save();
+    		$queryA->save();
 
-    		return Response::json($query);
+            $queryB = new Accessories;
+            $queryB->apartment_id = $queryA->id;
+            $queryB->internet = $request->internet;
+            $queryB->parking = $request->parking;
+            $queryB->tv = $request->tv;
+            $queryB->klima = $request->klima;
+            $queryB->vesmasina = $request->vesmasina;
+            $queryB->ljubimci = $request->ljubimci;
 
+            $queryB->save();
+            $i = -1;
+            foreach ($request->files as $file) {
+                while (isset($file[++$i])) {
+                    if($file !== null && $file[$i]->isValid()) {            
+                        $desPath = public_path().'/images/';
+                        $fileName = rand(11111, 99999).'.png';
+                        $file[$i]->move($desPath, $fileName);
+                
+                        $query = new Image;
+                        $query->image_name = $fileName;
+                        $query->apartment_id = $queryA->id;
+
+                        $query->save();
+                    }
+                }
+            }
+    		return Response::json($queryA);
     	}
     	
     }
 
-    public function addAccessories(Request $request)
+    public function addImages(Request $request)
     {   
-        $validator = Validator::make($request->all(), Accessories::$accessoriesRules);
-
-        if($validator->fails()) {
-            $messages = $validator->messages();
-            return Response::json($messages, 400);
-        } 
-        else {
-            $query = new Accessories;
-            $query->apartment_id = $request->apartment_id;
-            $query->internet = $request->internet;
-            $query->parking = $request->parking;
-            $query->tv = $request->tv;
-            $query->klima = $request->klima;
-            $query->vesmasina = $request->vesmasina;
-            $query->ljubimci = $request->ljubimci;
-
-            $query->save();
+        foreach ($request->files as $key => $file) {
+            dd($file[2]);
         }
     }
 
     public function editApartment(Request $request) {
-        $validator = Validator::make($request->all(), $this->validatonRulesEditApartment);
+        $validator = Validator::make($request->all(), $this->validatonRulesApartment);
 
         if($validator->fails()) {
             $messages = $validator->messages();
@@ -109,13 +120,13 @@ class ApiController extends Controller
     }
 
     public function selectAccessories($id) {
-        $query = DB::table('accessories')->where('apartment_id', '=', $id)->get();
+        $query = Accessories::where('apartment_id', '=', $id)->get();
         return Response::json($query);
     }
 
     public function getAppartments()
     {
-    	$query = DB::table('apartmens')->get();
+        $query = Apartment::with('images')->get();
     	return Response::json($query);
     }
 

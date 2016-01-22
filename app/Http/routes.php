@@ -67,6 +67,11 @@ Route::group(['middleware' => ['web', 'auth']], function() {
       'uses'  => 'ApiController@editApartment'
     ]);
 
+    Route::post('api/addImages', [
+      'as'    => 'addImages.post',
+      'uses'  => 'ApiController@addImages'
+    ]);
+
     Route::get('api/selectAccessories/{id}', [
       'as'    => 'selectAccessories.get',
       'uses'  => 'ApiController@selectAccessories'

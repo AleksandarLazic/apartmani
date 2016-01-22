@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $table 	= 'images';
-    protected $fillable = ['image_name'];
+    protected $fillable = ['image_name', 'apartment_id'];
+
+    public function apartment()
+    {
+    	$this->hasOne('App\Apartment');
+    }
 }

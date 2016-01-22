@@ -27,11 +27,11 @@
 				    <li class="active"><a href="#">Poruke <span class="sr-only">(current)</span></a></li>
         			<li><a href="{{ route('reservation.get') }}">Rezervacije</a></li>
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+				          <a class="dropdown-toggle" data-toggle="dropdown" 
 				          	role="button" aria-haspopup="true" aria-expanded="false">Apartmani
 				          	<span class="caret"></span></a>
 				          <ul class="dropdown-menu">
-				            <li><a href="{{ route('panel.get') }}">Dodaj apartman</a></li>
+				            <li><a href="admin#/apartments">Dodaj apartman</a></li>
 				            <li><a href="#">Izmeni apartman</a></li>
 				          </ul>
 				        </li>
@@ -44,6 +44,7 @@
 	<section>
 		<div class="container">
 			<div class="row">
+			<span class="col-lg-12 col-xs-12" id="title" ng-show="showTitleAddApartment">Dodaj Apartman <hr></span>			
 				<div ng-view></div>
 			</div>
 		</div>

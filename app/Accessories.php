@@ -19,4 +19,9 @@ class Accessories extends Model
     		'vesmasina' 		=> 'required',
     		'ljubimci' 			=> 'required',
     	);
+
+    public function apartment()
+    {
+        $this->hasOne('App\Apartment');
+    }
 }

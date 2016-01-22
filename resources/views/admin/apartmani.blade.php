@@ -1,7 +1,7 @@
-<div class="col-xs-12 col-lg-6">
-	<span id="title" ng-show="showTitleAddApartment">Dodaj Apartman <hr></span>
-	<span id="title" ng-show="hideTitleAddApartment">Izmeni Apartman <hr></span>
-	<form>
+<div class="col-md-2 col-md-offset-5" ng-show="showEditTitle">
+	<h1>Edit</h1>
+</div> 
+<div class="col-xs-12 col-lg-4">
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="apartman_name"
 			 placeholder="Ime apartmana" ng-model="apartment_name">
@@ -26,7 +26,7 @@
 			 	" ng-repeat="error in errors">[[ error.price[0] ]]</p>
 		</div>
 		<div class="form-group">
-			<select class="form-control input-lg" name="room" ng-model="room">
+			<select class="form-control input-lg select" name="room" ng-model="room">
 				<option value="" disabled>Broj soba</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -37,7 +37,7 @@
 				ng-repeat="error in errors">[[ error.room[0] ]]</p>
 		</div>
 		<div class="form-group">
-			<select class="form-control input-lg" name="bed" ng-model="bed">
+			<select class="form-control input-lg select" name="bed" ng-model="bed">
 				<option value="" disabled>Broj kreveta</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -51,9 +51,7 @@
 		<a>Dalje</a></button>
 		<button class="btn btn-default" ng-click="saveEditApartment()" ng-show="showSave">
 		<a>Sacuvaj</a></button>
-	</form>
 </div>
-@include('admin.allApartmens')
-<div ng-show="showAccessories">
 @include('admin.accessories')
-</div>
+@include('admin.addImages')
+@include('admin.allApartmens')

@@ -1,6 +1,4 @@
-<div class="col-xs-12 col-lg-6">
-	<span id="title" ng-show="showTitleAddAcc">Dodaj Opremu <hr></span>
-	<span id="title" ng-show="hideTitleAddAcc">Izmeni Opremu <hr></span>
+<div class="col-xs-12 col-lg-4" >
 	<div class="form-group">
 		<select class="form-control input-lg" name="internet" ng-model="internet">
 			<option value="" disabled>Internet</option>
@@ -49,7 +47,4 @@
 		</select>
 		<p ng-repeat="error in errors">[[ error.ljubimci[0] ]]</p>
 	</div>
-	<button class="btn btn-default" ng-click="addAccessories()">
-		<a>Dalje</a></button>
 </div>
-@include('admin.allApartmens')

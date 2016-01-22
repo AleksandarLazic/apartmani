@@ -2,6 +2,7 @@
 <script type="text/javascript" src="{{ asset('assets/angularJS/angular.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/angularJS/angular-animate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/angularJS/angular-route.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/angularJS/ng-file-upload.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/apartmentApp.js') }}"></script>
 
 

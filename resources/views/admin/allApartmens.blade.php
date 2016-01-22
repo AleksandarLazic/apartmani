@@ -1,7 +1,8 @@
-<div class="col-lg-6 allApartments" ng-hide="hideApartments">
+<div class="col-lg-12 col-md-12 col-xs-12 allApartments" ng-hide="hideApartments">
 	<span id="title">Svi vasi apartmani <hr></span>
 	<div id="all" ng-repeat="item in apartments">
-		<div class="col-lg-3 col-xs-12 box">
+		<div class="col-lg-4 col-xs-12 box">
+			<img ng-repeat="i in item.images" ng-src="../images/[[ i.image_name ]]" />
 			<p> [[ item.apartment_name ]] </p>
 			<p> Cena : [[ item.price ]] &euro; </p>
 			<button><a ng-click="editApartment(item, $index)">Izmeni</a></button>

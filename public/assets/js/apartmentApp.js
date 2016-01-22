@@ -1,4 +1,4 @@
-var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate'],
+var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate', 'ngFileUpload'],
 	function($interpolateProvider) {
 		$interpolateProvider.startSymbol('[[');
   		$interpolateProvider.endSymbol(']]');
@@ -8,12 +8,12 @@ var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate'],
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-                when('/', {
+                when('/apartments', {
                     templateUrl : 'admin/apartmani',
                     controller 	: 'addApartmentController'
                 }).
-                when('/accessories/:param', {
-                	templateUrl : 'admin/accessories',
+                when('/', {
+                	templateUrl : 'admin/allApartmens',
                 	controller 	: 'addApartmentController'
                 }).
                 otherwise({ 
@@ -22,20 +22,22 @@ app.config(['$routeProvider',
     }
 ]);
 
-app.controller('addApartmentController', function($scope, $http, $location, $routeParams) {
+app.controller('addApartmentController',
+	['$scope', '$http', '$location', '$routeParams', 'Upload', 
+	function($scope, $http, $location, $routeParams, Upload) {
 	
 	$scope.apartments = [];
 	$scope.errors = [];
 	$scope.accessories = [];
 
-	$scope.showTitleAddAcc = true; //show title dodaj accessories
-	$scope.showTitleAddApartment = true; // show title dodaj apartman
-	$scope.showNext = true; // show button dalje
+	$scope.showTitleAddAcc = true; //show title "dodaj accessories"
+	$scope.showTitleAddApartment = true; // show title "dodaj apartman"
+	$scope.showNext = true; // show button "dalje"
 	
 
 	$scope.saveApartment = function() {
-		$scope.errors.length = 0; 
-		$http({
+		$scope.errors.length = 0;
+		Upload.upload({
 			method: "POST",
 			url: "/api/addApartment",
 			data: { 
@@ -44,33 +46,20 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 				address : $scope.address,
 				price :	$scope.price,
 				room : $scope.room,
-				bed : $scope.bed }
-		}).
-		success(function(data) {
-			clearFields();
-			$scope.apartments.push(data);
-			$location.path('/accessories/'+ data.id);
-		}).
-		error(function(data) {
-			$scope.errors.push(data);
-		});
-	}
-
-	$scope.addAccessories = function() {
-		$http({
-			method: "POST",
-			url: "/api/addAccessories",
-			data: {
-				apartment_id : $routeParams.param,
+				bed : $scope.bed,
 				internet : $scope.internet,
 				parking : $scope.parking,
 				tv : $scope.tv,
 				klima : $scope.klima,
 				vesmasina : $scope.vesmasina,
-				ljubimci : $scope.ljubimci
+				ljubimci : $scope.ljubimci,
+				files : $scope.files, 
 			}
 		}).
-		success(function() {
+		success(function(data) {
+			clearFields();
+			$scope.files = "";
+			$scope.apartments.push(data);
 			$location.path('/');
 		}).
 		error(function(data) {
@@ -78,15 +67,18 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 		});
 	}
 
+	$scope.remove = function(index) {
+		$scope.files.splice(index, 1);
+	}
+
 	$scope.editApartment = function(item, index) {
-		$scope.showNext = false; //hide dalje button
-		$scope.showSave = true; //show sacuvaj button
+		$scope.showNext = false; //hide "dalje" button
+		$scope.showSave = true; //show "sacuvaj" button
 		$scope.showAccessories = true;
 		$scope.hideApartments = true; //hide list of apartments
-		$scope.showTitleAddAcc = false; //hide title dodaj accessories
-		$scope.hideTitleAddAcc = true; //show title izmeni accessories
-		$scope.showTitleAddApartment = false; //hide title dodaj apartman
-		$scope.hideTitleAddApartment = true; //show title dodaj apartman
+		$scope.showTitleAddAcc = false; //hide title "dodaj accessories"
+		$scope.showEditTitle = true;
+		$scope.showTitleAddApartment = false; //hide title "dodaj apartman"
 
 		$scope.apartment_name = item.apartment_name;
 		$scope.city = item.city;
@@ -174,7 +166,13 @@ app.controller('addApartmentController', function($scope, $http, $location, $rou
 		$scope.price = "";
 		$scope.room = "";
 		$scope.bed = "";
+		$scope.internet = "";
+		$scope.parking = "";
+		$scope.tv = "";
+		$scope.klima = "";
+		$scope.vesmasina = "";
+		$scope.ljubimci = ""; 
 	}
 
 	$scope.showAllApartment();
-});
+}]);

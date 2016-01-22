@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Apartman extends Model
+class Apartment extends Model
 {
     protected $table = 'apartmens';
     protected $fillable = ['admin_id', 'apartment_name',
@@ -18,4 +18,14 @@ class Apartman extends Model
     		'room' 			    => 'required',
     		'bed' 				=> 'required',
     	);
+
+    public function apartments()
+    {
+        return $this->hasManyThrough('App\Accessories', 'App\Image', 'apartment_id', 'apartment_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\Image');
+    }
 }
