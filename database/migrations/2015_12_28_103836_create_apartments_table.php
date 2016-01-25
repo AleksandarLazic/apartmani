@@ -15,7 +15,7 @@ class CreateApartmentsTable extends Migration
         Schema::create('apartments', function ($table) {
             $table->increments('id');
             $table->integer('admin_id');
-            $table->string('apartment_name')->unique();
+            $table->string('apartment_name');
             $table->string('city');
             $table->string('address');
             $table->smallInteger('price');

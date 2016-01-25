@@ -26,18 +26,25 @@ class ApiController extends Controller
             'tv'                => 'required',
             'klima'             => 'required',
             'vesmasina'         => 'required',
-            'ljubimci'          => 'required',
+            'ljubimci'          => 'required',            
             );
+    
+    private function makeDir() {
+        $dir = public_path().'/images/';
+        mkdir($dir, 0777, true); 
+    }
 
     private function addImage($request, $id = null) {
+        $desPath = public_path().'/images/';
+        if(!file_exists($desPath))
+            $this->makeDir();
+        
         $i = -1;
         foreach ($request->files as $file) {
             while (isset($file[++$i])) {
                 if($file !== null && $file[$i]->isValid()) {            
-                    $desPath = public_path().'/images/';
                     $fileName = rand(11111, 99999).'.png';
-                    $file[$i]->move($desPath, $fileName);
-            
+                    $file[$i]->move($desPath, $fileName);            
                     $query = new Image;
                     $query->image_name = $fileName;
                     
@@ -52,8 +59,7 @@ class ApiController extends Controller
         }
     }
 
-    public function addApartment(Request $request) 
-    {	
+    public function addApartment(Request $request) {	
     	$validator = Validator::make($request->all(), $this->validatonRulesApartment);
 
     	if($validator->fails()) {
@@ -116,7 +122,7 @@ class ApiController extends Controller
 
             $this->addImage($request);
 
-            $query = DB::table('apartmens')->where('id', '=', $request->apartment_id)->get();
+            $query = DB::table('apartments')->where('id', '=', $request->apartment_id)->get();
             return Response::json($query);
         }
     }
@@ -132,7 +138,7 @@ class ApiController extends Controller
     }
 
     public function deleteApartment($id) {
-        $queryOne = DB::table('apartmens')
+        $queryOne = DB::table('apartments')
                 ->where('id', '=', $id)
                 ->delete();
 
