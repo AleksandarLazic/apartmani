@@ -80,7 +80,7 @@ app.controller('addApartmentController',
 		$scope.bed = item.beds;
 		$scope.id  = item.id;
 		$scope.index = index;
-		showAccessories(item.id);	
+		showAccessories(item.id);
 	}
 
 	$scope.saveEditApartment = function() {
