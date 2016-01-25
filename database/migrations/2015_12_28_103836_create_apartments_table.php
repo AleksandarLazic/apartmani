@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApartmansTable extends Migration
+class CreateApartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateApartmansTable extends Migration
      */
     public function up()
     {
-        Schema::create('apartmens', function ($table) {
+        Schema::create('apartments', function ($table) {
             $table->increments('id');
             $table->integer('admin_id');
             $table->string('apartment_name')->unique();
@@ -32,6 +32,6 @@ class CreateApartmansTable extends Migration
      */
     public function down()
     {
-        Schema::drop('apartmens');
+        Schema::drop('apartments');
     }
 }

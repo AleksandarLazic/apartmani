@@ -43,8 +43,7 @@
 	</nav>
 	<section>
 		<div class="container">
-			<div class="row">
-			<span class="col-lg-12 col-xs-12" id="title" ng-show="showTitleAddApartment">Dodaj Apartman <hr></span>			
+			<div class="row">			
 				<div ng-view></div>
 			</div>
 		</div>

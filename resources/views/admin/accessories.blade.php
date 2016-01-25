@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-lg-4" >
+<div class="col-xs-12 col-lg-4">
 	<div class="form-group">
 		<select class="form-control input-lg" name="internet" ng-model="internet">
 			<option value="" disabled>Internet</option>

@@ -1,3 +1,4 @@
+<div ng-controller="editApartmentController" ng-init="init()">
 <span class="col-lg-12 col-xs-12" id="title">Dodaj Apartman <hr></span>
 <div class="col-xs-12 col-lg-4">
 		<div class="form-group">
@@ -45,10 +46,19 @@
 			<p ng-hide="bed != null " 
 				ng-repeat="error in errors">[[ error.bed[0] ]]</p>
 		</div>
-		<button class="btn btn-default" ng-click="saveApartment()" ng-show="showNext">
-		<a>Dalje</a></button>
-		<button class="btn btn-default" ng-click="saveEditApartment()" ng-show="showSave">
+		<button class="btn btn-default" ng-click="saveEditApartment()">
 		<a>Sacuvaj</a></button>
 </div>
 @include('admin.accessories')
-@include('admin.addImages')
+<div class="col-xs-12 col-lg-4">
+	<div class="button" ngf-select ng-model="images" ngf-multiple="true">Select</div>
+	<div ng-repeat="file in files">
+		<img class="col-xs-12 col-lg-4" ng-src="../images/[[ file.image_name ]]" class="thumb">
+		<button ng-click="remove(file, $index)">Remove</button>
+	</div>
+	<div ng-repeat="image in images">
+		<img class="col-xs-12 col-lg-4" ngf-src="image" class="thumb">
+		<button ng-click="removeNew($index)">Remove</button>
+	</div>
+</div>
+</div>

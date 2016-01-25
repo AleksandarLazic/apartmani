@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Apartment extends Model
 {
-    protected $table = 'apartmens';
+    protected $table = 'apartments';
     protected $fillable = ['admin_id', 'apartment_name',
      'city', 'address', 'price', 'rooms', 'beds'];
 

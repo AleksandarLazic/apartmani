@@ -8,13 +8,17 @@ var app = angular.module('apartmentApp', ['ngRoute', 'ngAnimate', 'ngFileUpload'
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
+                when('/', {
+                	templateUrl : 'admin/allApartmens',
+                	controller 	: 'addApartmentController'
+                }).
                 when('/apartments', {
                     templateUrl : 'admin/apartmani',
                     controller 	: 'addApartmentController'
                 }).
-                when('/', {
-                	templateUrl : 'admin/allApartmens',
-                	controller 	: 'addApartmentController'
+                when('/editApartment/:param', {
+                	templateUrl : 'admin/apartmani',
+                    controller 	: 'addApartmentController'
                 }).
                 otherwise({ 
                 	redirectTo: '/' 
@@ -30,9 +34,8 @@ app.controller('addApartmentController',
 	$scope.errors = [];
 	$scope.accessories = [];
 
-	$scope.showTitleAddAcc = true; //show title "dodaj accessories"
-	$scope.showTitleAddApartment = true; // show title "dodaj apartman"
 	$scope.showNext = true; // show button "dalje"
+	$scope.edit = true;
 	
 
 	$scope.saveApartment = function() {
@@ -72,14 +75,7 @@ app.controller('addApartmentController',
 	}
 
 	$scope.editApartment = function(item, index) {
-		$scope.showNext = false; //hide "dalje" button
-		$scope.showSave = true; //show "sacuvaj" button
-		$scope.showAccessories = true;
-		$scope.hideApartments = true; //hide list of apartments
-		$scope.showTitleAddAcc = false; //hide title "dodaj accessories"
-		$scope.showEditTitle = true;
-		$scope.showTitleAddApartment = false; //hide title "dodaj apartman"
-
+		$routeParams.param = item.id;
 		$scope.apartment_name = item.apartment_name;
 		$scope.city = item.city;
 		$scope.address = item.address;

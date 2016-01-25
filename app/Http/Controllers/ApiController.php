@@ -27,8 +27,30 @@ class ApiController extends Controller
             'klima'             => 'required',
             'vesmasina'         => 'required',
             'ljubimci'          => 'required',
-            'files'             => 'required',
             );
+
+    private function addImage($request, $id = null) {
+        $i = -1;
+        foreach ($request->files as $file) {
+            while (isset($file[++$i])) {
+                if($file !== null && $file[$i]->isValid()) {            
+                    $desPath = public_path().'/images/';
+                    $fileName = rand(11111, 99999).'.png';
+                    $file[$i]->move($desPath, $fileName);
+            
+                    $query = new Image;
+                    $query->image_name = $fileName;
+                    
+                    if($request->apartment_id == false) 
+                        $query->apartment_id = $id;
+                    else
+                        $query->apartment_id = $request->apartment_id;
+
+                    $query->save();
+                }
+            }
+        }
+    }
 
     public function addApartment(Request $request) 
     {	
@@ -39,52 +61,30 @@ class ApiController extends Controller
             return Response::json($messages, 400);
     	} 
         else {
-    		$queryA = new Apartment;
-    		$queryA->apartment_name = $request->apartment_name;
-    		$queryA->city = $request->city;
-    		$queryA->address = $request->address;
-    		$queryA->price = $request->price;
-    		$queryA->rooms = $request->room;
-    		$queryA->beds = $request->bed;
+    		$addApartment = new Apartment;
+    		$addApartment->apartment_name = $request->apartment_name;
+    		$addApartment->city = $request->city;
+    		$addApartment->address = $request->address;
+    		$addApartment->price = $request->price;
+    		$addApartment->rooms = $request->room;
+    		$addApartment->beds = $request->bed;
 
-    		$queryA->save();
+    		$addApartment->save();
 
-            $queryB = new Accessories;
-            $queryB->apartment_id = $queryA->id;
-            $queryB->internet = $request->internet;
-            $queryB->parking = $request->parking;
-            $queryB->tv = $request->tv;
-            $queryB->klima = $request->klima;
-            $queryB->vesmasina = $request->vesmasina;
-            $queryB->ljubimci = $request->ljubimci;
+            $addAccessories = new Accessories;
+            $addAccessories->apartment_id = $addApartment->id;
+            $addAccessories->internet = $request->internet;
+            $addAccessories->parking = $request->parking;
+            $addAccessories->tv = $request->tv;
+            $addAccessories->klima = $request->klima;
+            $addAccessories->vesmasina = $request->vesmasina;
+            $addAccessories->ljubimci = $request->ljubimci;
 
-            $queryB->save();
-            $i = -1;
-            foreach ($request->files as $file) {
-                while (isset($file[++$i])) {
-                    if($file !== null && $file[$i]->isValid()) {            
-                        $desPath = public_path().'/images/';
-                        $fileName = rand(11111, 99999).'.png';
-                        $file[$i]->move($desPath, $fileName);
-                
-                        $query = new Image;
-                        $query->image_name = $fileName;
-                        $query->apartment_id = $queryA->id;
-
-                        $query->save();
-                    }
-                }
-            }
-    		return Response::json($queryA);
+            $addAccessories->save();
+            $this->addImage($request, $addApartment->id);
+    		return Response::json($addApartment);
     	}
     	
-    }
-
-    public function addImages(Request $request)
-    {   
-        foreach ($request->files as $key => $file) {
-            dd($file[2]);
-        }
     }
 
     public function editApartment(Request $request) {
@@ -94,7 +94,7 @@ class ApiController extends Controller
             $messages = $validator->messages();
             return Response::json($messages, 400);
         } else {
-            $queryOne = DB::table('apartmens')
+            $editApartment = DB::table('apartmens')
                         ->where('id', $request->apartment_id)
                         ->update(array(
                             'apartment_name' => $request->apartment_name,
@@ -104,7 +104,7 @@ class ApiController extends Controller
                             'beds' => $request->bed,
                             'rooms' => $request->room));
 
-            $queryTwo = DB::table('accessories')
+            $editAccessories = DB::table('accessories')
                         ->where('apartment_id', $request->apartment_id)
                         ->update(array(
                             'internet' => $request->internet,
@@ -113,6 +113,8 @@ class ApiController extends Controller
                             'klima' => $request->klima,
                             'vesmasina' => $request->vesmasina,
                             'ljubimci' => $request->ljubimci));
+
+            $this->addImage($request);
 
             $query = DB::table('apartmens')->where('id', '=', $request->apartment_id)->get();
             return Response::json($query);
@@ -124,8 +126,7 @@ class ApiController extends Controller
         return Response::json($query);
     }
 
-    public function getAppartments()
-    {
+    public function getAppartments() {
         $query = Apartment::with('images')->get();
     	return Response::json($query);
     }
@@ -137,6 +138,19 @@ class ApiController extends Controller
 
         $queryTwo = DB::table('accessories')
                 ->where('apartment_id', '=', $id)
+                ->delete();
+    }
+
+    public function showImages($id) {
+        $query = DB::table('images')
+                ->where('apartment_id', '=', $id)
+                ->get();
+        return Response::json($query);
+    }
+
+    public function deleteImages($id) {
+        $query = DB::table('images')
+                ->where('id', '=', $id)
                 ->delete();
     }
 }

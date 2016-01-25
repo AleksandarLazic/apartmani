@@ -87,4 +87,14 @@ Route::group(['middleware' => ['web', 'auth']], function() {
       'uses'  => 'ApiController@getAppartments'
     ]);
 
+    Route::get('api/showImages/{id}', [
+      'as'    => 'showImages.get',
+      'uses'  => 'ApiController@showImages'
+    ]);
+
+    Route::get('api/deleteImages/{id}', [
+      'as'    => 'deleteImages.get',
+      'uses'  => 'ApiController@deleteImages'
+    ]);
+
 });
