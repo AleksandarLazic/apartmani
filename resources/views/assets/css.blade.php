@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/css.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/stylesheets/style.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/font-awesome-4.5.0/css/font-awesome.min.css') }}">
 
 <!-- fonts -->

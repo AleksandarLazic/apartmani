@@ -1,0 +1,50 @@
+/* line 7, ../sass/style.scss */
+.row-centered {
+  margin-top: 150px;
+  text-align: center;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
+/* line 14, ../sass/style.scss */
+.row-centered .col-centered {
+  box-shadow: 0px 1px 2px 0px #E7EDF3;
+  display: inline-block;
+  float: none;
+  margin-right: -4px;
+  height: 400px;
+  border: 1px solid #D4DFE7;
+  border-radius: 15px;
+  background-color: #fff;
+}
+/* line 24, ../sass/style.scss */
+.row-centered .inner {
+  vertical-align: middle;
+  margin-top: 150px;
+}
+
+/* line 30, ../sass/style.scss */
+h1, form, .allApartments, .nav a {
+  font-family: "Cabin", Helvetica, Arial, sans-serif;
+}
+
+/* line 31, ../sass/style.scss */
+#title {
+  font-family: "Lobster", Georgia, Times, serif;
+  font-size: 30px;
+}
+
+/* line 36, ../sass/style.scss */
+.box {
+  border: 1px solid #D4DFE7;
+  border-radius: 15px;
+  box-shadow: 0px 1px 2px 0px #E7EDF3;
+  margin-right: 5px;
+  margin-top: 5px;
+  background-size: Auto 100px;
+  background-repeat: no-repeat;
+}
+/* line 45, ../sass/style.scss */
+.box p {
+  color: #fff;
+}

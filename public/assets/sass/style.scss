@@ -1,0 +1,46 @@
+$crusorDefault : default !important;
+$crusorPointer : pointer !important;
+$font : 'Cabin', Helvetica, Arial, sans-serif;
+$fontTitle : 'Lobster', Georgia, Times, serif;
+$white : #fff;
+
+.row-centered {
+	margin-top: 150px;
+    text-align:center;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+
+    .col-centered {
+    	box-shadow: 0px 1px 2px 0px #E7EDF3;
+    	display:inline-block;
+    	float:none;
+    	margin-right:-4px;
+    	height: 400px;
+    	border: 1px solid #D4DFE7;
+    	border-radius: 15px;
+    	background-color: $white;
+	}
+	.inner {
+    	vertical-align: middle;
+    	margin-top: 150px;
+	}
+}
+
+h1, form, .allApartments, .nav a { font-family: $font; }
+#title  {
+	font-family: $fontTitle;
+	font-size: 30px;
+}
+
+.box { 
+    border: 1px solid #D4DFE7;
+    border-radius: 15px;
+    box-shadow: 0px 1px 2px 0px #E7EDF3;
+    margin-right: 5px;
+    margin-top: 5px;
+    background-size: Auto 100px;
+    background-repeat: no-repeat;
+
+    p {  color: $white; }
+}
