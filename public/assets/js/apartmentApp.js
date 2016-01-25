@@ -34,10 +34,6 @@ app.controller('addApartmentController',
 	$scope.errors = [];
 	$scope.accessories = [];
 
-	$scope.showNext = true; // show button "dalje"
-	$scope.edit = true;
-	
-
 	$scope.saveApartment = function() {
 		$scope.errors.length = 0;
 		Upload.upload({
@@ -108,10 +104,6 @@ app.controller('addApartmentController',
 			}
 		}).
 		success(function(data) {
-			$scope.showSave = false;
-			$scope.showAccessories = false;
-			$scope.hideApartments = false;
-			$scope.showNext = true; // show button dalje
 			$scope.apartments[$scope.index] = data[0];
 			clearFields();
 		}).

@@ -100,7 +100,7 @@ class ApiController extends Controller
             $messages = $validator->messages();
             return Response::json($messages, 400);
         } else {
-            $editApartment = DB::table('apartmens')
+            $editApartment = DB::table('apartments')
                         ->where('id', $request->apartment_id)
                         ->update(array(
                             'apartment_name' => $request->apartment_name,
