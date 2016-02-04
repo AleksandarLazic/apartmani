@@ -2,10 +2,15 @@
 <html>
 <head>
 	<title></title>
-@include('assets.bootstrap')
-@include('assets.css')
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		@include('assets.bootstrap')
+		@include('assets.css')
 </head>
-<body  ng-app="mainApp" ng-controller="mainController">
+<body ng-app="mainApp" ng-controller="mainController">
 <header>
 <div class="background">
 <nav class="navbar navbar-collapse">
@@ -107,13 +112,15 @@
 </body>
 @include('assets.js')
 <script type="text/javascript">
-$("header").vegas({
-	timer : false,
-	slides: [
-    	{ src: "../images/apartman-1.jpg" },
-    	{ src: "../images/apartman-2.jpg" },
-    	{ src: "../images/apartman-3.jpg" },
-	]
+$(document).ready(function () {
+	$("header").vegas({
+		timer : false,
+		slides: [
+	    	{ src: "../images/apartman-1.jpg" },
+	    	{ src: "../images/apartman-2.jpg" },
+	    	{ src: "../images/apartman-3.jpg" },
+		]
+	});
 });
 </script>
 </html>
