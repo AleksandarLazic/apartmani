@@ -3,6 +3,7 @@ $crusorPointer : pointer !important;
 $font : 'Cabin', Helvetica, Arial, sans-serif;
 $fontTitle : 'Lobster', Georgia, Times, serif;
 $white : #fff;
+@import "main";
 
 .row-centered {
 	margin-top: 150px;
@@ -27,20 +28,28 @@ $white : #fff;
 	}
 }
 
-h1, form, .allApartments, .nav a { font-family: $font; }
-#title  {
-	font-family: $fontTitle;
-	font-size: 30px;
-}
+h1, form, .nav a { font-family: $font; }
 
-.box { 
-    border: 1px solid #D4DFE7;
-    border-radius: 15px;
-    box-shadow: 0px 1px 2px 0px #E7EDF3;
-    margin-right: 5px;
-    margin-top: 5px;
-    background-size: Auto 100px;
-    background-repeat: no-repeat;
+.allApartments {
+    .inner  {
+    	font-size: 30px;
+        z-index: 1000;
+           p { font-family: $font; }
+    }
 
-    p {  color: $white; }
+    img {
+        height: 100px;
+        z-index: -1;
+    }
+
+    .box { 
+        border: 1px solid #D4DFE7;
+        border-radius: 15px;
+        box-shadow: 0px 1px 2px 0px #E7EDF3;
+        margin-top:10px;
+        overflow: hidden;
+
+
+    }
+
 }

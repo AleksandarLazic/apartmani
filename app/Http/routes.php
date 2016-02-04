@@ -1,11 +1,13 @@
 <?php
-// Route::get('/', function() {
-//  $u = new App\Admin;
-//  $u->username = 'admin';
-//  $u->password = Hash::make('admin');
-//  $u->save();
-// });
+
 Route::group(['middleware' => ['web']], function () {
+  Route::get('/', function() {
+      return view('main');
+  });
+  Route::get('api/getAllApartments', [
+      'as'    => 'selectAllApartments.get',
+      'uses'  => 'ApiController@getAllAppartments'
+  ]);
     
     Route::get('/admin/login', [
   		'as' 	=> 'login.get',
@@ -96,5 +98,4 @@ Route::group(['middleware' => ['web', 'auth']], function() {
       'as'    => 'deleteImages.get',
       'uses'  => 'ApiController@deleteImages'
     ]);
-
 });

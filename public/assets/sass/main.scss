@@ -1,0 +1,42 @@
+header {
+	background-size: cover;
+	height: 100vh;
+	border-bottom: 2px solid;
+	
+	.navbar {
+		background: rgba(0,0,0,0.2);
+	}
+	.background {
+		background: rgba(0,0,0,0.2);
+		background-repeat:no-repeat;
+		background-size:contain;
+		background-position:center;
+	}
+}
+
+.apartments {
+	height: 100vh;
+	h2 {
+		text-align: center;
+		font-family: $font;
+	}
+	.background {
+		height: 300px;
+		width: 100%;
+		background-size: cover;
+	}
+	.body {
+		margin-left: 10px;
+		z-index: 1000;
+		position: absolute;
+		color: white;
+		font-family: $font;
+	}
+}
+
+.booking {
+	h2 {
+		text-align: center;
+		font-family: $font;
+	}
+}

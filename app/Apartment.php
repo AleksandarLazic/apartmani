@@ -28,4 +28,9 @@ class Apartment extends Model
     {
         return $this->hasMany('App\Image');
     }
+
+    public function accessories()
+    {
+        return $this->hasMany('App\Accessories');
+    }
 }

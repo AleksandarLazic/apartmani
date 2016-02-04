@@ -1,5 +1,5 @@
 <div ng-controller="editApartmentController" ng-init="init()">
-<span class="col-lg-12 col-xs-12" id="title">Dodaj Apartman <hr></span>
+<span class="col-lg-12 col-xs-12 title" class="">Dodaj Apartman <hr></span>
 <div class="col-xs-12 col-lg-4">
 		<div class="form-group">
 			<input class="form-control input-lg" type="text" name="apartman_name"

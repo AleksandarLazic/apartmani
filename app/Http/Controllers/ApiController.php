@@ -159,4 +159,9 @@ class ApiController extends Controller
                 ->where('id', '=', $id)
                 ->delete();
     }
+
+    public function getAllAppartments() {
+        $query = Apartment::with('images')->with('accessories')->get();
+        return Response::json($query);
+    }
 }
